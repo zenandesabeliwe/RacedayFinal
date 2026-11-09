@@ -1,4 +1,3 @@
-
 # RaceDay Event Management System
 ## ASSIGNMENT 3: MVC DEVELOPMENT
 
