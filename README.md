@@ -343,5 +343,5 @@ The project demonstrates practical knowledge of database development, RESTful AP
 The application was developed using Visual Studio 2022, with SQL Server used for data storage and GitHub used for source code management.
 
 Final verification of the database setup, complete MVC workflows and GitHub Actions should be performed before submission.
-https://github.com/zenandesabeliwe/RaceDay.git - github
+https://github.com/zenandesabeliwe/RacedayFinal.git - github
 https://youtu.be/uCBPw5g1pF4 - youTube
