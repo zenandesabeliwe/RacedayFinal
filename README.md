@@ -31,11 +31,8 @@ The following technologies were used to develop the RaceDay system:
 - **GitHub Actions:** Used for CI workflow configuration, subject to successful workflow verification.
 
 ## 3. DATABASE IMPLEMENTATION
-
 The application uses a SQL Server database named **Raceday**.
-
 The database consists of seven main tables:
-
 - **Users:** Stores registered user information, including names, email addresses, phone numbers, password hashes and user roles.
 - **Organisers:** Stores organiser information linked to registered users.
 - **Participants:** Stores participant information linked to registered users.
