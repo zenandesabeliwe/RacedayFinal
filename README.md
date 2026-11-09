@@ -11,7 +11,6 @@ RaceDay supports two user roles: Organiser and Participant. Each role has its ow
 ## 2. TECHNOLOGIES USED
 
 The following technologies were used to develop the RaceDay system:
-
 - **C#:** Used to develop the application's functionality.
 - **ASP.NET Core Web API:** Used to develop RESTful API endpoints.
 - **ASP.NET Core MVC:** Used to develop the web application and user interface.
