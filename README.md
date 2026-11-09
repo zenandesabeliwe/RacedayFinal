@@ -70,9 +70,7 @@ Authenticated users can retrieve and update their profile information.
 ### 4.3 EventsController
 
 The EventsController manages sporting events.
-
 It provides functionality for retrieving events and for Organisers to create, update and delete events.
-
 Role-based authorisation is used to restrict event management operations.
 
 ### 4.4 CategoriesController
