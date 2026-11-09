@@ -37,9 +37,7 @@ The database consists of seven main tables:
 - **Results:** Stores race results, including finishing times and finishing positions.
 
 Primary keys and foreign keys are used to establish relationships between the database tables.
-
 The API communicates with SQL Server using ADO.NET and parameterised SQL queries.
-
 ### Database Demonstration Data
 
 The database can contain sample organisers, participants, sporting events, categories, enrolments and results for demonstration purposes.
