@@ -94,9 +94,7 @@ It provides functionality for retrieving participant records according to the pe
 ## 5. MVC IMPLEMENTATION
 
 The ASP.NET Core MVC application provides the user interface for RaceDay.
-
 The MVC website communicates with the Web API to retrieve, display and manage information.
-
 The application follows the Model-View-Controller design pattern.
 
 - **Models:** Represent application data.
