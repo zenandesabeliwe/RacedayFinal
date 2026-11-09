@@ -1,4 +1,4 @@
-name: RaceDay API CI
+name: RaceDay MVC CI
 
 on:
   push:
