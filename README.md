@@ -125,7 +125,6 @@ The application follows the Model-View-Controller design pattern.
 ### 5.1 Home Page
 
 The home page introduces the RaceDay system.
-
 It provides navigation options for users to register or log in.
 
 ### 5.2 Registration and Login
