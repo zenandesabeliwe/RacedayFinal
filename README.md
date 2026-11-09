@@ -38,6 +38,22 @@ Primary keys and foreign keys are used to maintain relationships between the tab
 
 The API connects to SQL Server using ADO.NET and parameterised SQL queries.
 
+### Main Features
+Authentication and User Roles
+- User registration and login
+- Organiser and Participant roles
+- Session-based login and role-specific navigation
+- Logout functionality
+- Personalised welcome message using the signed-in user's first name
+- Password hashing using BCrypt
+Organiser Features
+- View the organiser dashboard
+- Create and manage race events
+- Work with race categories
+- View enrolments for an event
+- Access race results functionality
+Verification note: Before submission, test the full organiser workflow, especially category management and entering race results.
+
 ### 4. RESTFUL API IMPLEMENTATION
 
 The application contains seven controllers responsible for managing different system operations.
