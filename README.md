@@ -38,10 +38,10 @@ The database consists of seven main tables:
 
 Primary keys and foreign keys are used to establish relationships between the database tables.
 The API communicates with SQL Server using ADO.NET and parameterised SQL queries.
+
 ### Database Demonstration Data
 
 The database can contain sample organisers, participants, sporting events, categories, enrolments and results for demonstration purposes.
-
 A database setup script containing fictional demonstration records should be provided separately so that the application can be tested on another computer.
 
 Real user information and passwords should not be included in a public repository.
