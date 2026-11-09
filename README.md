@@ -53,13 +53,11 @@ The RaceDay Web API manages the backend functionality and communicates with the 
 ### 4.1 AuthController
 The AuthController manages user registration, login and logout.
 Users can register as either Organisers or Participants.
-
 Passwords are hashed using BCrypt before being stored in the database. During login, the entered password is verified against the stored password hash.
 
 ### 4.2 UsersController
 
 The UsersController manages registered user information.
-
 Authenticated users can retrieve and update their profile information.
 
 ### 4.3 EventsController
@@ -116,7 +114,6 @@ It provides navigation options for users to register or log in.
 ### 5.2 Registration and Login
 
 Users can create accounts and log in using their registered email addresses and passwords.
-
 After a successful login, users are redirected according to their roles.
 
 - Organisers are redirected to the Organiser Dashboard.
