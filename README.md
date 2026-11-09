@@ -1,224 +1,370 @@
-# RACEDAY EVENT MANAGEMENT SYSTEM
-## ASSIGNMENT 3:  MVC DEVELOPMENT
 
-### 1. PROJECT OVERVIEW
-RaceDay is a web-based race event management system developed for a Software Development assignment. It allows organisers to manage races and participants to browse and enrol in events. The application uses an ASP.NET Core Web API for backend operations, an ASP.NET Core MVC website for the user interface, and Microsoft SQL Server for storing data.
-The system has two user roles: Organiser and Participant. Each role has its own navigation and access to relevant features.
+# RaceDay Event Management System
 
-### 2. TECHNOLOGIES USED
+## ASSIGNMENT 3: MVC DEVELOPMENT
+
+## 1. PROJECT OVERVIEW
+
+RaceDay is a web-based race event management system developed as part of a Software Development assignment.
+
+The system allows Organisers to manage sporting events and Participants to browse upcoming races, enrol in events and view their race results.
+
+The application consists of an ASP.NET Core Web API for backend operations, an ASP.NET Core MVC website for the user interface and a Microsoft SQL Server database for storing information.
+
+RaceDay supports two user roles: Organiser and Participant. Each role has its own navigation menu and access to relevant system features.
+
+## 2. TECHNOLOGIES USED
 
 The following technologies were used to develop the RaceDay system:
 
-- **C#:** Used to develop the application and implement its functionality.
-- **ASP.NET Core Web API:** Used to create RESTful API endpoints.
-- **Visual Studio 2022:** Used to write, debug, build and test the application.
-- **SQL Server:** Used to store and manage application data.
+- **C#:** Used to develop the application's functionality.
+- **ASP.NET Core Web API:** Used to develop RESTful API endpoints.
+- **ASP.NET Core MVC:** Used to develop the web application and user interface.
+- **Razor Views:** Used to display dynamic information on web pages.
+- **Visual Studio 2022:** Used to develop, build, debug and test the application.
+- **Microsoft SQL Server:** Used to store and manage application data.
 - **SQL Server Management Studio (SSMS):** Used to create and manage database tables.
 - **ADO.NET:** Used to connect the API to SQL Server and execute SQL queries.
-- **BCrypt:** Used to hash and verify user passwords.
-- **Swagger:** Used to test API endpoints.
-- **xUnit:** Used to create and execute automated tests.
-- **GitHub and GitHub Actions:** Intended for version control and CI/CD once configured.
+- **BCrypt:** Used for password hashing and verification.
+- **Swagger:** Used to test the API endpoints.
+- **xUnit:** Used for automated testing.
+- **GitHub:** Used for source code version control and project submission.
+- **GitHub Actions:** Used for CI workflow configuration, subject to successful workflow verification.
 
-### 3. DATABASE IMPLEMENTATION
+## 3. DATABASE IMPLEMENTATION
 
-The system uses a SQL Server database named Raceday.
+The application uses a SQL Server database named **Raceday**.
 
 The database consists of seven main tables:
 
-1. **Users:** Stores user information, including names, email addresses, phone numbers, passwords and user roles.
-2. **Organisers:** Stores organiser information linked to registered users.
-3. **Participants:** Stores participant information linked to registered users.
-4. **Events:** Stores event names, descriptions, dates, locations, distances and event types.
-5. **Categories:** Stores the categories associated with sporting events.
-6. **Enrolments:** Records participants who have enrolled in events.
-7. **Results:** Stores participants' finishing times and finishing positions.
+- **Users:** Stores registered user information, including names, email addresses, phone numbers, password hashes and user roles.
+- **Organisers:** Stores organiser information linked to registered users.
+- **Participants:** Stores participant information linked to registered users.
+- **Events:** Stores sporting event details, including event names, dates, locations and other event information.
+- **Categories:** Stores race categories associated with events.
+- **Enrolments:** Records participants who have enrolled in sporting events.
+- **Results:** Stores race results, including finishing times and finishing positions.
 
-Primary keys and foreign keys are used to maintain relationships between the tables.
+Primary keys and foreign keys are used to establish relationships between the database tables.
 
-The API connects to SQL Server using ADO.NET and parameterised SQL queries.
+The API communicates with SQL Server using ADO.NET and parameterised SQL queries.
 
-### Main Features
-Authentication and User Roles
-- User registration and login
-- Organiser and Participant roles
-- Session-based login and role-specific navigation
-- Logout functionality
-- Personalised welcome message using the signed-in user's first name
-- Password hashing using BCrypt
-Organiser Features
-- View the organiser dashboard
-- Create and manage race events
-- Work with race categories
-- View enrolments for an event
-- Access race results functionality
-Verification note: Before submission, test the full organiser workflow, especially category management and entering race results.
+### Database Demonstration Data
 
-### 4. RESTFUL API IMPLEMENTATION
+The database can contain sample organisers, participants, sporting events, categories, enrolments and results for demonstration purposes.
 
-The application contains seven controllers responsible for managing different system operations.
+A database setup script containing fictional demonstration records should be provided separately so that the application can be tested on another computer.
 
-**4.1 AuthController**
+Real user information and passwords should not be included in a public repository.
+
+## 4. RESTFUL API IMPLEMENTATION
+
+The RaceDay Web API manages the backend functionality and communicates with the SQL Server database.
+
+### 4.1 AuthController
 
 The AuthController manages user registration, login and logout.
 
-Users can register as either Organisers or Participants. Passwords are hashed using BCrypt before being stored in the database.
+Users can register as either Organisers or Participants.
 
-During login, the system verifies the entered password against the stored password hash.
+Passwords are hashed using BCrypt before being stored in the database. During login, the entered password is verified against the stored password hash.
 
-Sessions are used to maintain user login information.
+### 4.2 UsersController
 
-**4.2 UsersController**
+The UsersController manages registered user information.
 
-The UsersController allows authenticated users to view and update their personal information.
+Authenticated users can retrieve and update their profile information.
 
-Users can retrieve their profiles and update their names and phone numbers.
-
-The controller prevents unauthenticated users from accessing profile information.
-
-**4.3 EventsController**
+### 4.3 EventsController
 
 The EventsController manages sporting events.
 
-Organisers can create, retrieve, update and delete events. Authorisation checks prevent Participants from performing Organiser-only operations.
+It provides functionality for retrieving events and for Organisers to create, update and delete events.
 
-Organisers are also restricted from modifying events belonging to other Organisers.
+Role-based authorisation is used to restrict event management operations.
 
-**4.4 CategoriesController**
+### 4.4 CategoriesController
 
-The CategoriesController manages event categories.
+The CategoriesController manages race categories associated with sporting events.
 
-It allows event categories to be created, retrieved, updated and deleted.
+It provides functionality for creating, retrieving, updating and deleting categories.
 
-Categories are linked to their corresponding events in the database.
+### 4.5 EnrolmentsController
 
-**4.5 EnrolmentsController**
+The EnrolmentsController manages participant enrolments.
 
-The EnrolmentsController allows Participants to enrol in sporting events.
+Participants can enrol in events and retrieve their existing enrolments.
 
-The system checks whether a Participant has already enrolled in an event to prevent duplicate enrolments.
+The API checks for duplicate enrolments to prevent participants from entering the same event more than once.
 
-Organisers can view enrolments associated with their events.
+Organisers can retrieve enrolment information for events.
 
-**4.6 ResultsController**
+### 4.6 ResultsController
 
 The ResultsController manages race results.
 
-Organisers can record participants' finishing times and finishing positions.
+It provides functionality for recording finishing times and positions and retrieving results.
 
-The system prevents duplicate results from being recorded for the same enrolment.
+### 4.7 ParticipantsController
 
-Participants can view their own race results, while Organisers can view results associated with their events.
+The ParticipantsController manages participant information.
 
-**4.7 ParticipantsController**
+It provides functionality for retrieving participant records according to the permissions implemented in the API.
 
-The ParticipantsController manages the retrieval of participant information.
+## 5. MVC IMPLEMENTATION
 
-Organisers can retrieve participant records and search for individual participants.
+The ASP.NET Core MVC application provides the user interface for RaceDay.
 
-Participants can view their own profiles but are prevented from accessing other participants' profiles.
+The MVC website communicates with the Web API to retrieve, display and manage information.
 
-### 5. AUTHENTICATION AND SECURITY
+The application follows the Model-View-Controller design pattern.
 
-The RaceDay system implements authentication and role-based authorisation.
+- **Models:** Represent application data.
+- **Views:** Display information to users using Razor.
+- **Controllers:** Handle user requests and communicate with the API.
 
-Two user roles are supported: Organiser and Participant.
+### 5.1 Home Page
 
-BCrypt password hashing is used to protect passwords created through the registration API.
+The home page introduces the RaceDay system.
 
-Sessions are used to identify logged-in users and determine their access permissions.
+It provides navigation options for users to register or log in.
 
-Protected endpoints return HTTP 401 Unauthorized when users are not logged in.
+### 5.2 Registration and Login
 
-HTTP 403 Forbidden is returned when users attempt to access operations that their roles do not permit.
+Users can create accounts and log in using their registered email addresses and passwords.
 
-SQL parameters are used when executing queries involving user input to reduce the risk of SQL injection.
+After a successful login, users are redirected according to their roles.
 
-### 6. API TESTING USING SWAGGER
+- Organisers are redirected to the Organiser Dashboard.
+- Participants are redirected to the Upcoming Races page.
 
-Swagger was used to test the RESTful API endpoints.
+### 5.3 Organiser Interface
 
-The following operations were successfully tested:
+The Organiser interface provides functionality for managing sporting events.
+
+The interface includes:
+
+- Organiser Dashboard
+- Create Event
+- Upcoming Races
+- Event Management
+- Enrolment Information
+- Race Results
+- My Profile
+- Logout
+
+### 5.4 Participant Interface
+
+The Participant interface allows registered participants to access race-related information.
+
+The interface includes:
+
+- Personalised welcome message
+- Upcoming Races
+- Event Details
+- Event Enrolment
+- My Enrolments
+- My Results
+- My Profile
+- Logout
+
+### 5.5 Personalised Welcome Message
+
+After a successful login, the application retrieves the user's first name from the session.
+
+Participants are welcomed on the Upcoming Races page.
+
+The first name is stored in the MVC session after authentication.
+
+### 5.6 Event Enrolment
+
+Participants can select an upcoming event and view its details.
+
+The application communicates with the API to process enrolment requests.
+
+Participants can view their registered events under My Enrolments.
+
+The event details page also checks existing enrolment information to identify participants who have already enrolled.
+
+## 6. AUTHENTICATION AND SECURITY
+
+RaceDay implements authentication and role-based access control.
+
+The system supports two user roles:
+
+- Organiser
+- Participant
+
+BCrypt is used to hash and verify passwords.
+
+Session information is used to identify authenticated users and determine their roles.
+
+The MVC application uses session information to display navigation options appropriate to the logged-in user.
+
+Protected pages redirect unauthenticated users to the login page.
+
+The API uses authorisation checks to restrict access to protected operations.
+
+Parameterised SQL queries are used to reduce the risk of SQL injection.
+
+Logout functionality clears the MVC session and sends a logout request to the API.
+
+## 7. ORGANISER FUNCTIONALITY
+
+The Organiser role is designed for users responsible for managing sporting events.
+
+The system provides functionality for:
+
+- Viewing the Organiser Dashboard.
+- Creating sporting events.
+- Viewing upcoming races.
+- Managing existing events.
+- Working with race categories.
+- Retrieving participant enrolments.
+- Accessing race results functionality.
+- Viewing and updating profile information.
+
+The complete Organiser workflow, particularly category management and results entry through MVC, should be verified before final submission.
+
+## 8. PARTICIPANT FUNCTIONALITY
+
+The Participant role is designed for users who want to participate in sporting events.
+
+The system provides functionality for:
+
+- Registering a Participant account.
+- Logging in securely.
+- Viewing a personalised welcome message.
+- Browsing upcoming races.
+- Viewing event information.
+- Enrolling in sporting events.
+- Viewing existing enrolments.
+- Preventing duplicate event enrolments.
+- Accessing personal race results.
+- Viewing and updating profile information.
+- Logging out.
+
+The My Enrolments feature retrieves participant enrolment information from the API and displays it on the MVC website.
+
+## 9. API TESTING USING SWAGGER
+
+Swagger was used during development to test the RaceDay Web API.
+
+The tested functionality included:
 
 - User registration and login.
 - Organiser and Participant authentication.
-- Creating, retrieving, updating and deleting events.
-- Creating, retrieving, updating and deleting categories.
+- Creating and retrieving events.
+- Updating and deleting events.
+- Managing event categories.
 - Enrolling participants in events.
-- Preventing duplicate event enrolments.
-- Recording race results.
-- Retrieving event results.
-- Retrieving personal race results.
-- Restricting unauthorised access to participant information.
+- Preventing duplicate enrolments.
+- Recording and retrieving race results.
+- Retrieving participant information.
 - Retrieving and updating user profiles.
+- Checking access restrictions.
 
-The API returned appropriate HTTP response codes, including 200 OK, 400 Bad Request, 403 Forbidden and 409 Conflict during the relevant tests.
+API responses were examined to confirm the behaviour of the implemented endpoints.
 
-### 7. AUTOMATED UNIT TESTING
+## 10. AUTOMATED UNIT TESTING
 
 Automated tests were developed using the xUnit testing framework.
 
-The tests are contained in the RaceDay.Tests project.
+The tests are included in the RaceDay.Tests project.
 
-The automated tests were organised in a single file named BasicRequirementTests.cs.
+The tests cover validation and application behaviour, including:
 
-The tests cover validation scenarios, including accepted user roles, valid event types, password hashing and verification, finishing positions and finishing times.
+- User role validation.
+- Event type validation.
+- Password hashing and verification.
+- Finishing time validation.
+- Finishing position validation.
 
-The tests were executed locally using Visual Studio 2022 Test Explorer.
+### Local Test Results
 
-**Local Test Results:**
+The previously recorded local test results were:
 
-Total tests executed: 24
+- Total tests: 24
+- Passed: 24
+- Failed: 0
+- Skipped: 0
+- Success rate: 100%
+- Execution time: Approximately 1.8 seconds
 
-Tests passed: 24
+These results describe the previously recorded local test run and should be checked again against the final submitted code.
 
-Tests failed: 0
+## 11. GITHUB AND CONTINUOUS INTEGRATION
 
-Tests skipped: 0
+GitHub is used to store and manage the RaceDay source code.
 
-Success rate: 100%
+The repository contains the ASP.NET Core Web API, MVC application and associated test project.
 
-Execution time: Approximately 1.8 seconds.
+GitHub Actions is intended to automate the following processes:
 
-All 24 automated test cases passed successfully.
+- Restoring project dependencies.
+- Building the application.
+- Running automated tests.
+- Reporting build and test results.
 
-These tests demonstrate that the implemented validation rules and password verification operations work as expected. Additional automated controller and database integration tests are needed to demonstrate comprehensive coverage of the complete API.
+The final GitHub Actions workflow status must be verified in the repository before submission.
 
-### 8. CONTINUOUS INTEGRATION AND DEPLOYMENT
+## 12. HOW TO RUN THE APPLICATION
 
-GitHub Actions is intended to support continuous integration and continuous delivery for the RaceDay project.
+### Requirements
 
-The planned CI/CD workflow will automatically restore project dependencies, build the solution and execute automated tests when code is pushed to GitHub.
+- Visual Studio 2022
+- The .NET SDK version required by the solution
+- SQL Server LocalDB
+- SQL Server Management Studio
+- An available RaceDay database or database setup script
 
-At the time of preparing this README, the project has been tested locally, but successful execution through GitHub Actions has not yet been verified.
+### Running the Project
 
-### 9. HOW TO RUN THE APPLICATION
+1. Download or clone the RaceDay repository.
+2. Open the RaceDay solution in Visual Studio 2022.
+3. Ensure SQL Server LocalDB is installed.
+4. Open SQL Server Management Studio.
+5. Create or restore the Raceday database using the provided database script.
+6. Verify the connection string in the API configuration.
+7. Restore the required NuGet packages.
+8. Build the solution using Ctrl + Shift + B.
+9. Start the RaceDay API using its HTTPS launch profile.
+10. Start the RaceDay MVC application.
+11. Open the MVC website in a browser.
+12. Register or log in using a demonstration account.
+13. Test the features available to the selected user role.
 
-To run the RaceDay application:
+The API must be running for the MVC application to communicate with it.
 
-1. Open the RaceDay solution in Visual Studio 2022.
-2. Ensure that SQL Server LocalDB is installed and running.
-3. Open SQL Server Management Studio and ensure the Raceday database exists.
-4. Verify that the database connection string is correctly configured in appsettings.json.
-5. Build the solution using Ctrl + Shift + B.
-6. Run the RaceDay API project using the HTTPS launch profile.
-7. Open Swagger in the browser.
-8. Use the available API endpoints to register, log in and perform the permitted operations.
+The MVC application's API base URL must match the address and port used by the running API.
 
-To run the automated tests, open Test Explorer in Visual Studio and select Run All Tests.
+### Running Automated Tests
 
-### 10. CONCLUSION
+1. Open the solution in Visual Studio 2022.
+2. Select Test from the main menu.
+3. Open Test Explorer.
+4. Select Run All Tests.
+5. Review the test results.
 
-The RaceDay Event Management System demonstrates the development of a RESTful API using ASP.NET Core Web API, C# and SQL Server.
+## 13. PROJECT STRUCTURE
 
-The application provides user registration, authentication, event management, category management, participant enrolment and race result management.
+The RaceDay solution contains the following main components:
 
-Role-based authorisation, BCrypt password hashing and parameterised SQL queries were implemented to improve application security.
+- **RaceDay.Api:** Backend RESTful API, controllers, data access and database operations.
+- **RaceDay.Mvc:** MVC website, controllers, Razor views and API communication services.
+- **RaceDay.Tests:** Automated tests for the application.
 
-The main API operations were successfully tested using Swagger, and all 24 automated xUnit test cases passed locally.
+The solution also includes configuration files and project dependencies required for development and execution.
 
-The project demonstrates practical knowledge of RESTful API development, database integration, authentication, security and software testing. Further controller-level testing and GitHub Actions verification will complete the remaining testing and CI/CD requirements.
+## 14. CONCLUSION
 
-### GitHub AND YouTube
-https://youtu.be/xKwaa7zH85c - youTube
+The RaceDay Event Management System demonstrates the development of a web-based application using ASP.NET Core Web API, ASP.NET Core MVC, C# and Microsoft SQL Server.
+
+The system combines backend functionality with a role-based website that allows Organisers to manage races and Participants to browse and enrol in events.
+
+The project demonstrates practical knowledge of database development, RESTful APIs, MVC architecture, authentication, role-based authorisation, password security and automated testing.
+
+The application was developed using Visual Studio 2022, with SQL Server used for data storage and GitHub used for source code management.
+
+Final verification of the database setup, complete MVC workflows and GitHub Actions should be performed before submission.
 https://github.com/zenandesabeliwe/RaceDay.git - github
