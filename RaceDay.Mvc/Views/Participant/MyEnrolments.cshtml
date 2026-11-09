@@ -1,0 +1,80 @@
+﻿@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "My Enrolments";
+}
+
+<h2>My Enrolments</h2>
+
+<p>Here are the races you have enrolled in.</p>
+
+@if (Model.ValueKind != JsonValueKind.Array ||
+     Model.GetArrayLength() == 0)
+{
+    <div class="alert alert-info">
+        You have not enrolled in any races yet.
+    </div>
+
+    <a asp-controller="Events"
+       asp-action="Index"
+       class="btn btn-success">
+        Browse Upcoming Races
+    </a>
+}
+else
+{
+    <div class="row">
+
+        @foreach (JsonElement enrolment in Model.EnumerateArray())
+        {
+            int eventID = enrolment.GetProperty("eventID").GetInt32();
+
+            string eventName = enrolment.GetProperty("eventName").GetString() ?? "";
+
+            string eventDate = enrolment.GetProperty("eventDate").GetString() ?? "";
+
+            string location = enrolment.GetProperty("location").GetString() ?? "";
+
+            string enrolmentDate = enrolment.GetProperty("enrolmentDate").GetString() ?? "";
+
+            <div class="col-md-6 mb-4">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            @eventName
+                        </h5>
+
+                        <p>
+                            <strong>Race Date:</strong> @eventDate
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong> @location
+                        </p>
+
+                        <p>
+                            <strong>Enrolled On:</strong> @enrolmentDate
+                        </p>
+
+                        <p class="text-success">
+                            <strong>Status:</strong> Enrolled
+                        </p>
+
+                        <a asp-controller="Events"
+                           asp-action="Details"
+                           asp-route-id="@eventID"
+                           class="btn btn-success">
+                            View Race
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}

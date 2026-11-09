@@ -1,0 +1,22 @@
+@model JsonElement
+
+@{
+    string? role = Context.Session.GetString("Role");
+    string firstName = Context.Session.GetString("FirstName") ?? "Runner";
+}
+
+@if (role == "Participant")
+{
+    <div class="p-4 mb-4 bg-light rounded-3">
+
+        <h1>Welcome, @firstName!</h1>
+
+        <p class="lead">
+            We're glad to have you back at RaceDay.
+            Ready for your next race?
+        </p>
+
+    </div>
+}
+
+<h1>Upcoming races</h1><div class="row g-4">@if(Model.ValueKind == JsonValueKind.Array) { foreach(var e in Model.EnumerateArray()) { <div class="col-md-6 col-lg-4"><div class="card h-100 shadow-sm"><div class="card-body"><h2 class="h5">@e.GetProperty("eventName").GetString()</h2><p>@e.GetProperty("location").GetString()</p><a class="btn btn-success" asp-action="Details" asp-route-id="@e.GetProperty("eventID").GetInt32()">View race</a></div></div></div> } }</div>

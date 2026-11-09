@@ -1,0 +1,2 @@
+@model JsonElement
+<h1>Event @ViewBag.EventID: Results</h1>@if(Model.ValueKind==JsonValueKind.Array){foreach(var r in Model.EnumerateArray()){<div class="card p-3 mb-2"><pre class="mb-0">@r.ToString()</pre></div>}}<a asp-action="Index">Back to dashboard</a>

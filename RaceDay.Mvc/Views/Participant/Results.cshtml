@@ -1,0 +1,2 @@
+@model JsonElement
+<h1>My results</h1><p>Results appear here after the organiser records them.</p>@if(Model.ValueKind==JsonValueKind.Array){foreach(var r in Model.EnumerateArray()){<div class="card p-3 mb-2"><pre class="mb-0">@r.ToString()</pre></div>}}

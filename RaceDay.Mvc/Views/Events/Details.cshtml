@@ -1,0 +1,121 @@
+@using System.Text.Json
+@model JsonElement
+
+@{
+    ViewData["Title"] = "Race Details";
+
+    string? role = Context.Session.GetString("Role");
+
+    bool alreadyEnrolled = ViewBag.AlreadyEnrolled == true;
+
+    bool enrolmentCheckSucceeded =
+        ViewBag.EnrolmentCheckSucceeded == true;
+}
+
+<h1>@Model.GetProperty("eventName").ToString()</h1>
+
+<p>@Model.GetProperty("description").ToString()</p>
+
+<p>
+    <strong>Event ID:</strong>
+    @Model.GetProperty("eventID")
+</p>
+
+<p>
+    <strong>Location:</strong>
+    @Model.GetProperty("location").ToString()
+</p>
+
+<p>
+    <strong>Distance:</strong>
+    @Model.GetProperty("distance") km
+</p>
+
+<p>
+    <strong>Date:</strong>
+    @Model.GetProperty("eventDate")
+</p>
+
+<!-- Participant enrolment section -->
+@if (role == "Participant")
+{
+    if (enrolmentCheckSucceeded == false)
+    {
+        <button class="btn btn-secondary" disabled>
+            Enrolment status unavailable
+        </button>
+    }
+    else if (alreadyEnrolled == true)
+    {
+        <button class="btn btn-secondary" disabled>
+            Already Enrolled
+        </button>
+    }
+    else
+    {
+        <form asp-controller="Participant"
+              asp-action="Enrol"
+              method="post">
+
+            <input type="hidden"
+                   name="eventID"
+                   value="@Model.GetProperty("eventID")" />
+
+            <button type="submit" class="btn btn-success">
+                Enrol in this Event
+            </button>
+
+        </form>
+    }
+}
+
+<a class="btn btn-outline-success mt-3"
+   asp-controller="Events"
+   asp-action="Index">
+    Back to races
+</a>
+
+<h2 class="h4 mt-4">Race categories</h2>
+
+@if (ViewData["Categories"] is JsonElement cats &&
+     cats.ValueKind == JsonValueKind.Array &&
+     cats.GetArrayLength() > 0)
+{
+    <div class="row g-3">
+
+        @foreach (JsonElement category in cats.EnumerateArray())
+        {
+            <div class="col-md-6">
+
+                <div class="card p-3">
+
+                    <strong>
+                        @category.GetProperty("categoryName").ToString()
+                    </strong>
+
+                    <div>
+                        Distance:
+                        @category.GetProperty("distance") km
+                    </div>
+
+                    <div>
+                        Minimum age:
+                        @category.GetProperty("age")
+                    </div>
+
+                    <div>
+                        Start time:
+                        @category.GetProperty("startTime")
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <p>No categories have been added to this event yet.</p>
+}

@@ -1,0 +1,17 @@
+@model JsonElement
+
+@{
+    string firstName = Context.Session.GetString("FirstName") ?? "Organiser";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3">
+
+    <h1>Welcome, @firstName!</h1>
+
+    <p class="lead">
+        Manage your races, participants and upcoming events.
+    </p>
+
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4"><h1>Organiser dashboard</h1><a class="btn btn-success" asp-action="Create">Create new event</a></div><h2 class="h4">Events</h2><div class="row g-3">@if(Model.ValueKind==JsonValueKind.Array){foreach(var e in Model.EnumerateArray()){var id=e.GetProperty("eventID").GetInt32();<div class="col-md-6"><div class="card p-3 h-100"><h3 class="h5">@e.GetProperty("eventName").ToString()</h3><p>Event ID: @id · @e.GetProperty("location").ToString()</p><div class="d-flex gap-2 flex-wrap"><a class="btn btn-sm btn-outline-success" asp-controller="Events" asp-action="Details" asp-route-id="@id">View</a><a class="btn btn-sm btn-outline-success" asp-action="Edit" asp-route-id="@id">Edit</a><a class="btn btn-sm btn-outline-success" asp-action="Categories" asp-route-id="@id">Categories</a><a class="btn btn-sm btn-outline-success" asp-action="Enrolments" asp-route-id="@id">Enrolments</a><a class="btn btn-sm btn-outline-success" asp-action="Results" asp-route-id="@id">Results</a><form method="post" asp-action="Delete" asp-route-id="@id" onsubmit="return confirm('Delete this event?');"><button class="btn btn-sm btn-outline-danger">Delete</button></form></div></div></div>}}else{<p>No events available.</p>}</div>
