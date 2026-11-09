@@ -1,13 +1,9 @@
 # RACEDAY EVENT MANAGEMENT SYSTEM
-## ASSIGNMENT 2: RESTFUL API DEVELOPMENT
+## ASSIGNMENT 3:  MVC DEVELOPMENT
 
 ### 1. PROJECT OVERVIEW
-
-RaceDay is an Event Management System developed using ASP.NET Core Web API and C#. The system allows organisers to create and manage sporting events, while participants can register, enrol in events and view their race results.
-
-The project was developed using Visual Studio 2022 and connected to a SQL Server database. It uses RESTful API endpoints to perform operations such as creating, retrieving, updating and deleting information.
-
-The main objective of this project is to demonstrate RESTful API development, database connectivity, user authentication, role-based authorisation, password security and automated testing.
+RaceDay is a web-based race event management system developed for a Software Development assignment. It allows organisers to manage races and participants to browse and enrol in events. The application uses an ASP.NET Core Web API for backend operations, an ASP.NET Core MVC website for the user interface, and Microsoft SQL Server for storing data.
+The system has two user roles: Organiser and Participant. Each role has its own navigation and access to relevant features.
 
 ### 2. TECHNOLOGIES USED
 
