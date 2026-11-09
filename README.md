@@ -5,7 +5,6 @@
 ## 1. PROJECT OVERVIEW
 
 RaceDay is a web-based race event management system developed as part of a Software Development assignment.
-
 The system allows Organisers to manage sporting events and Participants to browse upcoming races, enrol in events and view their race results.
 
 The application consists of an ASP.NET Core Web API for backend operations, an ASP.NET Core MVC website for the user interface and a Microsoft SQL Server database for storing information.
