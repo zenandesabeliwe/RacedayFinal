@@ -75,11 +75,8 @@ It provides functionality for creating, retrieving, updating and deleting catego
 ### 4.5 EnrolmentsController
 
 The EnrolmentsController manages participant enrolments.
-
 Participants can enrol in events and retrieve their existing enrolments.
-
 The API checks for duplicate enrolments to prevent participants from entering the same event more than once.
-
 Organisers can retrieve enrolment information for events.
 
 ### 4.6 ResultsController
