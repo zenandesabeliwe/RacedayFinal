@@ -57,9 +57,7 @@ Real user information and passwords should not be included in a public repositor
 The RaceDay Web API manages the backend functionality and communicates with the SQL Server database.
 
 ### 4.1 AuthController
-
 The AuthController manages user registration, login and logout.
-
 Users can register as either Organisers or Participants.
 
 Passwords are hashed using BCrypt before being stored in the database. During login, the entered password is verified against the stored password hash.
